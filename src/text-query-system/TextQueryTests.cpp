@@ -72,78 +72,136 @@ TEST_CASE("Word is not queryable if less than a specific size")
     auto test_word = Word ("No");
     CHECK_FALSE(test_word.isQueryable());
 }
+
 // ------------- Tests for Line ----------------
 //
 //// Test null case for contains() first - here, an empty line
-//TEST_CASE("Word cannot be found in empty Line") {
-//   auto line = Line{""};
-//   CHECK_FALSE(line.contains(Word{"hello"}));
-//}
+TEST_CASE("Word cannot be found in empty Line")
+{
+    auto line = Line{""};
+    CHECK_FALSE(line.contains(Word{"hello"}));
+}
 //
-//TEST_CASE("Word can be found in a Line with a single Word") {
-//	auto line = Line{"Stop"};
-//	CHECK(line.contains(Word{"Stop"}));
-//}
+TEST_CASE("Word can be found in a Line with a single Word")
+{
+    auto line = Line{"Stop"};
+    CHECK(line.contains(Word{"Stop"}));
+}
 //
 //// It is always good to write tests which test boundary conditions
-//TEST_CASE("First and last Words in a Line can be found") {
-//	auto line = Line{"Walking on water and developing software from a specification are easy if both are frozen."};
-//	CHECK(line.contains(Word{"Walking"}));
-//	CHECK(line.contains(Word{"frozen"}));
-//}
+TEST_CASE("First and last Words in a Line can be found")
+{
+    auto line = Line{"Walking on water and developing software from a specification are easy if both are frozen."};
+    CHECK(line.contains(Word{"Walking"}));
+    CHECK(line.contains(Word{"frozen"}));
+}
 //
 //// Test not only success scenarios but also failure scenarios.
-//TEST_CASE("Word not in a Line cannot be found") {
-//	auto line = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};
-//	CHECK_FALSE(line.contains(Word{"cellphone"}));
-//}
+TEST_CASE("Word not in a Line cannot be found")
+{
+    auto line = Line{"I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone."};
+    CHECK_FALSE(line.contains(Word{"cellphone"}));
+}
 //
-//TEST_CASE("Words are found irrespective of case") {
-//	auto line = Line{"You can stand on the shoulders of giants or a BIG enough pile of dwarfs, works either way."};
-//	CHECK(line.contains(Word{"big"}));
-//	CHECK(line.contains(Word{"STAND"}));
-//}
+TEST_CASE("Words are found irrespective of case")
+{
+    auto line = Line{"You can stand on the shoulders of giants or a BIG enough pile of dwarfs, works either way."};
+    CHECK(line.contains(Word{"big"}));
+    CHECK(line.contains(Word{"STAND"}));
+}
 //
-//TEST_CASE("Words are found irrespective of surrounding punctuation") {
-//	auto line = Line{"How can you tell if a person is a programmer? They use nested parentheses in normal writing (at least I do (sometimes))."};
-//	CHECK(line.contains(Word{"programmer"}));
-//	CHECK(line.contains(Word{"sometimes"}));
-//}
+TEST_CASE("Words are found irrespective of surrounding punctuation")
+{
+    auto line = Line{"How can you tell if a person is a programmer? They use nested parentheses in normal writing (at least I do (sometimes))."};
+    CHECK(line.contains(Word{"programmer"}));
+    CHECK(line.contains(Word{"sometimes"}));
+}
 //
-//TEST_CASE("Word which is not queryable cannot be found") {
-//   auto line = Line{"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."};
-//   CHECK_FALSE(line.contains(Word{"a"}));
-//}
+TEST_CASE("Word which is not queryable cannot be found")
+{
+    auto line = Line{"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."};
+    CHECK_FALSE(line.contains(Word{"a"}));
+}
 
 // ------------- Tests for Paragraph ----------------
 
-//TEST_CASE("Word cannot be found in empty Paragraph") {
-//}
+/*TEST_CASE("Word cannot be found in empty Paragraph")
+{
+    Paragraph paragraph;
+    auto line = Line{""};
+    paragraph.addLine(line);
+
+    auto[found, line_numbers] = paragraph.contains(Word{"weird"});
+
+    CHECK_FALSE(found);
+}
+
+TEST_CASE("Word not present in Paragraph cannot be found")
+{
+    Paragraph paragraph;
+    auto line = Line{"Life is full of suprises."};
+    paragraph.addLine(line);
+
+    auto[found, line_numbers] = paragraph.contains(Word{"weird"});
+
+    CHECK_FALSE(found);
+}
+
+TEST_CASE("Line number of a Word appearing once in Paragraph is returned")
+{
+    Paragraph paragraph;
+    auto line = Line{"Sbongile is Weird."};
+    paragraph.addLine(line);
+
+    auto[found, line_numbers] = paragraph.contains(Word{"weird"});
+
+    CHECK(!line_numbers.empty());
+}
 //
-//TEST_CASE("Word not present in Paragraph cannot be found") {
-//}
+TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned")
+{
+    Paragraph paragraph;
+    auto line = Line{"Sbongile is Weird."};
+    auto line2 = Line{"This thing, is weird"};
+
+    paragraph.addLine(line);
+    paragraph.addLine(line2);
+
+    auto[found, line_numbers] = paragraph.contains(Word{"Weird"});
+
+    CHECK(line_numbers.size()== 2 );
+}
 //
-//TEST_CASE("Line number of a Word appearing once in Paragraph is returned") {
-//}
-//
-//TEST_CASE("Line numbers of a Word appearing in multiple Lines of a Paragraph is returned") {
-//}
-//
-//TEST_CASE("Line numbers returned account for an empty Line") {
+TEST_CASE("Line numbers returned account for an empty Line")
+{
 //// If the first line of the paragraph is empty, and the word being searched for
 //// is on the second line, the vector returned should be: [2]
-//}
+    Paragraph paragraph;
+    auto line = Line{"This thing, is 'weird'"};
+    auto line2 = Line{""};
+    auto line3 = Line{"Sbongile is Weird."};
+
+    paragraph.addLine(line);
+    paragraph.addLine(line2);
+    paragraph.addLine(line3);
+
+    auto[found, line_numbers] = paragraph.contains(Word{"weird"});
+
+    CHECK(vector<int> {1,3} == line_numbers);
+}
 //
 //// Integration test - both Paragraph and File Reader are tested together
-//TEST_CASE("File can be read into Paragraph and successfully searched") {
-//	// make sure that alice.txt is in the right location for this to work!
-//	// it must be in the same directory as the executable
-//	auto filereader = FileReader{"alice.txt"};
-//	auto paragraph = Paragraph{};
-//	filereader.readFileInto(paragraph);
+TEST_CASE("File can be read into Paragraph and successfully searched")
+{
+    // make sure that alice.txt is in the right location for this to work!
+    // it must be in the same directory as the executable
+    auto filereader = FileReader{"alice.txt"};
+    auto paragraph = Paragraph{};
+    filereader.readFileInto(paragraph);
 //
-//	auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
+    auto[found, line_numbers] = paragraph.contains(Word{"Daddy"});
 //
-//	CHECK(found);
-//	CHECK(vector<int>{1,4,6} == line_numbers);
-//}
+    CHECK(found);
+    CHECK(vector<int> {1,4,6} == line_numbers);
+}
+*/
