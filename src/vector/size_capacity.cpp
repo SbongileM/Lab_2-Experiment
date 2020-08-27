@@ -1,5 +1,25 @@
 // size_capacity.cpp
 // Vector size versus capacity
+
+#include <vector>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    vector<int> vec;
+    cout << "vec: size: " << vec.size()
+         << " capacity: " << vec.capacity() << endl;
+
+    for(int i = 0; i < 24; i++) {
+        vec.push_back(i);
+        cout << "vec: size: " << vec.size()
+             << " capacity: " << vec.capacity() << endl;
+    }
+
+    return 0;
+}
 //Exercise 2.1
 
 
@@ -22,22 +42,3 @@ Usually the capacity size increases by the factor of 2 or 1.5 each time dependin
 It can be equal or greater than the vector size, when the size of the vector increases, the capacity assumes more than one element may be added.
 The more elements are in the vector, there more it assumes you need space and it usually grows exponentially or by a factor of 2 or less
 */
-#include <vector>
-#include <iostream>
-
-using namespace std;
-
-int main()
-{
-    vector<int> vec;
-    cout << "vec: size: " << vec.size()
-         << " capacity: " << vec.capacity() << endl;
-
-    for(int i = 0; i < 24; i++) {
-        vec.push_back(i);
-        cout << "vec: size: " << vec.size()
-             << " capacity: " << vec.capacity() << endl;
-    }
-
-    return 0;
-}
