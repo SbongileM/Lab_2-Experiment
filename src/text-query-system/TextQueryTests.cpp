@@ -19,49 +19,59 @@ const auto MIN_SIZE_FOR_QUERY = 3;
 // Also see further examples at:
 // https://github.com/onqtam/doctest/blob/master/examples/all_features/assertion_macros.cpp
 
-TEST_CASE("Empty Word cannot be created") {
+TEST_CASE("Empty Word cannot be created")
+{
     CHECK_THROWS_AS(Word{""}, WordContainsNoLetters);
 }
 
-TEST_CASE("Identical Words are equal") {
+TEST_CASE("Identical Words are equal")
+{
     CHECK(Word{"that"} == Word{"that"});
 }
 
-TEST_CASE("Non-identical Words are not equal") {
-	CHECK_FALSE(Word{"this"} == Word{"that"});
+TEST_CASE("Non-identical Words are not equal")
+{
+    CHECK_FALSE(Word{"this"} == Word{"that"});
 }
 
 // --------
 
-//TEST_CASE("Case is ignored when comparing Words") {
-//	CHECK(Word{LOWERCASE} == Word{UPPERCASE});
-//}
+TEST_CASE("Case is ignored when comparing Words")
+{
+    CHECK(Word{LOWERCASE} == Word{UPPERCASE});
+}
 //
-//TEST_CASE("Punctuation is ignored when comparing Words") {
-//	auto word_with_punct = Word{PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION};
-//	auto word_without_punct = Word{"hello"};
-//	CHECK(word_without_punct == word_with_punct);
-//}
+TEST_CASE("Punctuation is ignored when comparing Words")
+{
+    auto word_with_punct = Word{PUNCTUATION + "hel" + PUNCTUATION + "lo" + PUNCTUATION};
+    auto word_without_punct = Word{"hello"};
+    CHECK(word_without_punct == word_with_punct);
+}
 //
-//TEST_CASE("Word cannot consist solely of punctuation") {
-//	CHECK_THROWS_AS(Word{"!@#$%"}, WordContainsNoLetters);
-//}
+TEST_CASE("Word cannot consist solely of punctuation")
+{
+    CHECK_THROWS_AS(Word{"!@#$%"}, WordContainsNoLetters);
+}
 //
-//TEST_CASE("Word cannot contain a space") {
-//	CHECK_THROWS_AS(Word{"hello there"}, WordContainsSpace);
-//}
+TEST_CASE("Word cannot contain a space")
+{
+    CHECK_THROWS_AS(Word{"hello there"}, WordContainsSpace);
+}
 //
-//TEST_CASE("Word is queryable if greater than or equal to a specific size") {
-//	auto test_string = ""s;
-//	test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
-//	auto test_word = Word{test_string};
-//	CHECK(test_word.isQueryable());
-//}
+TEST_CASE("Word is queryable if greater than or equal to a specific size")
+{
+    auto test_string = ""s;
+    test_string.resize(MIN_SIZE_FOR_QUERY, 'a');
+    auto test_word = Word{test_string};
+    CHECK(test_word.isQueryable());
+}
 //
-//TEST_CASE("Word is not queryable if less than a specific size") {
+TEST_CASE("Word is not queryable if less than a specific size")
+{
 //// Write this test...
-//}
-
+    auto test_word = Word ("No");
+    CHECK_FALSE(test_word.isQueryable());
+}
 // ------------- Tests for Line ----------------
 //
 //// Test null case for contains() first - here, an empty line
