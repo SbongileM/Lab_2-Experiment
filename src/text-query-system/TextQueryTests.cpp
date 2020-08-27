@@ -125,7 +125,7 @@ TEST_CASE("Word which is not queryable cannot be found")
 
 // ------------- Tests for Paragraph ----------------
 
-/*TEST_CASE("Word cannot be found in empty Paragraph")
+TEST_CASE("Word cannot be found in empty Paragraph")
 {
     Paragraph paragraph;
     auto line = Line{""};
@@ -204,4 +204,4 @@ TEST_CASE("File can be read into Paragraph and successfully searched")
     CHECK(found);
     CHECK(vector<int> {1,4,6} == line_numbers);
 }
-*/
+
