@@ -25,7 +25,10 @@ public:
 
 private:
 	string word_;
+	int word_size;//size of word_
+	int min_size = 3;
+    //Making Line a friend so that it will be able to access all class Word members
+	friend class Line;
 };
 
 #endif
-

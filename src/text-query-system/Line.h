@@ -3,6 +3,7 @@
 
 #include "Word.h"
 #include <string>
+#include <vector>
 using namespace std;
 
 class Line
@@ -16,8 +17,10 @@ public:
 	bool contains(const Word& search_word) const;
 
 private:
+   vector<string> words;
+   //void lowrCase (string& , string&, vector<string>&)
 
+   friend class Paragraph;
 };
 
 #endif
-
